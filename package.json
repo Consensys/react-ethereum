@@ -1,0 +1,55 @@
+{
+  "name": "@daisypayments/react-ethereum",
+  "version": "0.1.0",
+  "description": "Ethereum context for React",
+  "author": "Patricio López Juri <patricio.juri@consensys.net> (https://lopezjuri.com)",
+  "license": "MIT",
+  "repository": "consensys/react-ethereum",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "react-scripts test --env=jsdom",
+    "lint": "eslint",
+    "build": "rollup -c",
+    "start": "rollup -c -w",
+    "prepare": "yarn run build",
+    "predeploy": "cd example && yarn install && yarn run build",
+    "deploy": "gh-pages -d example/build"
+  },
+  "dependencies": {
+    "prop-types": "^15.7.2"
+  },
+  "peerDependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.7.5",
+    "@babel/helpers": "^7.7.4",
+    "@babel/plugin-external-helpers": "^7.7.4",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.7.4",
+    "@babel/plugin-transform-runtime": "^7.7.6",
+    "@babel/preset-env": "^7.7.6",
+    "@babel/preset-react": "^7.7.4",
+    "@daisypayments/eslint-config": "^1.7.0",
+    "babel-jest": "^24.9.0",
+    "cross-env": "^6.0.3",
+    "eslint": "^6.7.2",
+    "gh-pages": "^2.0.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-scripts": "^3.3.0",
+    "rollup": "^1.27.11",
+    "rollup-plugin-babel": "^4.3.3"
+  }
+}
