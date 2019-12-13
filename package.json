@@ -1,6 +1,6 @@
 {
   "name": "@daisypayments/react-ethereum",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Ethereum context for React",
   "author": "Patricio López Juri <patricio.juri@consensys.net> (https://lopezjuri.com)",
   "license": "MIT",
