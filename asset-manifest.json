@@ -1,0 +1,19 @@
+{
+  "files": {
+    "main.js": "/react-ethereum/static/js/main.27c852c1.chunk.js",
+    "main.js.map": "/react-ethereum/static/js/main.27c852c1.chunk.js.map",
+    "runtime-main.js": "/react-ethereum/static/js/runtime-main.ea844c01.js",
+    "runtime-main.js.map": "/react-ethereum/static/js/runtime-main.ea844c01.js.map",
+    "static/js/2.44d65d65.chunk.js": "/react-ethereum/static/js/2.44d65d65.chunk.js",
+    "static/js/2.44d65d65.chunk.js.map": "/react-ethereum/static/js/2.44d65d65.chunk.js.map",
+    "index.html": "/react-ethereum/index.html",
+    "precache-manifest.a5f7c9974cf8c33ab13a7ed419e5d0c2.js": "/react-ethereum/precache-manifest.a5f7c9974cf8c33ab13a7ed419e5d0c2.js",
+    "service-worker.js": "/react-ethereum/service-worker.js",
+    "static/js/2.44d65d65.chunk.js.LICENSE": "/react-ethereum/static/js/2.44d65d65.chunk.js.LICENSE"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ea844c01.js",
+    "static/js/2.44d65d65.chunk.js",
+    "static/js/main.27c852c1.chunk.js"
+  ]
+}
