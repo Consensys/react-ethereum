@@ -98,19 +98,23 @@ export function createEthereumContext(initial = null) {
       try {
         this.setState({ awaiting: true });
         const response = await window.ethereum.send("eth_requestAccounts");
-        this.setState({
-          accounts: response["result"],
-          awaiting: false,
-          error: null,
-        });
-        return {
+        const nextState = {
           ethereum: window.ethereum,
           accounts: response["result"],
           error: null,
+          awaiting: false,
         };
+        this.setState(nextState);
+        return nextState;
       } catch (error) {
-        this.setState({ error, awaiting: false });
-        return { ethereum: window.ethereum, accounts: [], error };
+        const nextState = {
+          ethereum: window.ethereum,
+          accounts: [],
+          error,
+          awaiting: false,
+        };
+        this.setState(nextState);
+        return nextState;
       }
     };
 
