@@ -3,6 +3,7 @@
 /* eslint-disable promise/catch-or-return */
 /* eslint-disable promise/prefer-await-to-then */
 /* eslint-disable class-methods-use-this */
+
 import React, { Component } from "react"; // eslint-disable-line import/no-unresolved
 import PropTypes from "prop-types";
 
@@ -39,35 +40,43 @@ export function createEthereumContext(initial = null) {
     }
 
     async componentDidMount() {
-      if (!isBrowser()) {
+      if (!isBrowser() || !window.ethereum) {
         return void 0;
       }
 
-      this.listenerClose = window.ethereum.on("close", this.handleClose);
-      this.listenerNetwork = window.ethereum.on(
-        "networkChanged",
-        this.handleChainChange,
-      );
-      this.listenerChain = window.ethereum.on(
-        "chainChanged",
-        this.handleChainChange,
-      );
-      this.listenerAccount = window.ethereum.on(
-        "accountsChanged",
-        this.handleAccountChange,
-      );
+      try {
+        this.listenerClose = window.ethereum.on("close", this.handleClose);
+        this.listenerNetwork = window.ethereum.on(
+          "networkChanged",
+          this.handleChainChange,
+        );
+        this.listenerChain = window.ethereum.on(
+          "chainChanged",
+          this.handleChainChange,
+        );
+        this.listenerAccount = window.ethereum.on(
+          "accountsChanged",
+          this.handleAccountChange,
+        );
 
-      const [{ result: chainId }, { result: accounts }] = await Promise.all([
-        window.ethereum.send("eth_chainId"),
-        window.ethereum.send("eth_accounts"),
-      ]);
-      // const { result: chainId } = await window.ethereum.send("eth_chainId");
-      // const { result: accounts } = await window.ethereum.send("eth_accounts");
+        const [a, b] = await Promise.all([
+          window.ethereum.send("eth_chainId"),
+          window.ethereum.send("eth_accounts"),
+        ]);
+        // const { result: chainId } = await window.ethereum.send("eth_chainId");
+        // const { result: accounts } = await window.ethereum.send("eth_accounts");
 
-      this.setState({
-        chainId: Number(chainId) || null,
-        accounts,
-      });
+        this.setState({
+          chainId: a ? Number(a.result) || null : null,
+          accounts: b ? b.result : [],
+        });
+      } catch (error) {
+        console.error(
+          "react-metamask:",
+          "Error getting current network and accounts",
+          error,
+        );
+      }
     }
 
     shouldComponentUpdate(nextProps, nextState) {
@@ -96,11 +105,17 @@ export function createEthereumContext(initial = null) {
 
     handleConnect = async () => {
       try {
+        if (!window.ethereum) {
+          throw new Error("Current browser is not web3 enabled");
+        }
+
         this.setState({ awaiting: true });
+
         const response = await window.ethereum.send("eth_requestAccounts");
+
         const nextState = {
           ethereum: window.ethereum,
-          accounts: response["result"],
+          accounts: response ? response["result"] : [],
           error: null,
           awaiting: false,
         };
@@ -184,7 +199,7 @@ export const PropTypesEthereum = {
   ethereum: PropTypes.object,
   accounts: PropTypes.arrayOf(PropTypes.string).isRequired,
   error: PropTypes.object, // `Error` type
-  chainId: PropTypes.number.isRequired,
+  chainId: PropTypes.number,
   awaiting: PropTypes.bool.isRequired,
   requestConnection: PropTypes.func.isRequired,
 };

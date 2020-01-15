@@ -16,16 +16,45 @@ export default function Content(props) {
     <div {...props}>
       <p>Press here:</p>
       <button type="button" onClick={requestConnection}>
-        Action
+        {accounts.length === 0 ? "Connect" : "Already connected"}
       </button>
       <ul>
+        {ethereum ? (
+          <li>
+            <code>ethereum</code> object with:{" "}
+            <ul>
+              {Object.getOwnPropertyNames(ethereum).map(name => (
+                <li key={name}>
+                  <code>{name}</code>
+                </li>
+              ))}
+            </ul>
+          </li>
+        ) : (
+          <li>
+            <code>ethereum</code> object is <code>null</code>
+          </li>
+        )}
         <li>
-          Ethereum object with: <code>{Object.keys(ethereum).join(", ")}</code>
+          <code>accounts</code> array with:
+          <ol>
+            {accounts.map(account => (
+              <li key={account}>
+                <code>{account}</code>
+              </li>
+            ))}
+          </ol>
         </li>
-        <li>Account: {accounts.join(", ")}</li>
-        <li>Network: {chainId}</li>
-        <li>Waiting for user: {String(awaiting)}</li>
-        <li>Error: {error && error.message}</li>
+        <li>
+          Network (<code>chainId</code>): <code>{chainId}</code>
+        </li>
+        <li>
+          Waiting for user (<code>awaiting</code>):{" "}
+          <code>{String(awaiting)}</code>
+        </li>
+        <li>
+          <code>error</code>: <code>{error ? error.message : "null"}</code>
+        </li>
       </ul>
     </div>
   );
